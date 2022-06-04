@@ -1,0 +1,16 @@
+ul {
+    list-style: none;
+}
+.title {
+    text-align: center;
+}
+
+.list {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+
+
+}
+
