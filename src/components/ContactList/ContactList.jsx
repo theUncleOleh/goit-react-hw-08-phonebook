@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
-import { itemsSelectors } from 'redux/contacts';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import { itemsSelectors } from 'redux/contacts';
 // import ContactListItem from 'components/ContactListItem/ContactListItem';
 // import { useGetAllContactsQuery } from 'redux/contacts/auth-operations';
 // import Loader from 'components/Loader';
@@ -13,11 +15,53 @@ import { itemsOperations } from 'redux/contacts';
 
 export default function ContactList() {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-  console.log(contacts);
+
   useEffect(() => {
     dispatch(itemsOperations.contacts());
   }, [dispatch]);
+
+  const contacts = useSelector(state => state.contacts.contacts);
+  console.log(contacts);
+
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    // const user = { name, email, password };
+    // console.log(user);
+    dispatch(itemsOperations.addContacts({ name, number }));
+    // onSubmit(user);
+    reset();
+  };
+  // const numberFormatting = phone => {
+  //   const array = [...phone];
+  //   for (let i = 3; i < array.length - 1; i += 3) {
+  //     array.splice(i, 0, '-');
+  //   }
+  //   return array.join('');
+  // };
+
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
 
   // const { data: contacts, isLoading, error } = useGetAllContactsQuery();
   // const filter = useSelector(itemsSelectors.getFilterSelector);
@@ -52,9 +96,43 @@ export default function ContactList() {
           </ul>
         </>
       ) : null} */}
+      <form onSubmit={handleSubmit} className={s.form}>
+        <label htmlFor="" className={s.label}>
+          Name
+          <input
+            autoComplete="off"
+            className={s.input}
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        </label>
+
+        <label htmlFor="" className={s.label}>
+          E-mail
+          <input
+            autoComplete="off"
+            className={s.input}
+            type="tel"
+            name="number"
+            value={number}
+            onChange={handleChange}
+            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          />
+        </label>
+        <Button type="submit">Create</Button>
+      </form>
       <ul className={s.list}>
         {contacts?.map(contact => (
-          <li key={contact.id}>{contact.name}</li>
+          <li key={contact.id}>
+            {' '}
+            <span>{contact.name}</span> : <span>{contact.number}</span>
+          </li>
           // <ContactListItem
           //   key={contact.id}
           //   id={contact.id}

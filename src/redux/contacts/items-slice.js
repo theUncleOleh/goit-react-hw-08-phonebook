@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import itemsOperations from './items-operations';
 const initialState = {
-  items: [],
+  contacts: [],
   isLoading: false,
 };
 
@@ -11,7 +11,10 @@ const contactsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [itemsOperations.contacts.fulfilled](state, action) {
-      state.items = action.payload;
+      state.contacts = action.payload;
+    },
+    [itemsOperations.addContacts.fulfilled](state, action) {
+      state.contacts.push(action.payload);
     },
   },
 });

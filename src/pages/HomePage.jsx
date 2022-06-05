@@ -1,12 +1,10 @@
 import PageHeading from 'components/PageHeading';
 
-import ContactList from 'components/ContactList';
-export default function ContactsListPage() {
+export default function HomePage() {
   return (
     <div>
       <PageHeading text="Home page" />
-
-      <ContactList />
+      <h1>Helloooooo</h1>
     </div>
   );
 }

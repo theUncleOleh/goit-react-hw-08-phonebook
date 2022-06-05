@@ -12,5 +12,14 @@ const contacts = createAsyncThunk('items/contacts', async credentials => {
     console.log(error);
   }
 });
-const operations = { contacts };
+const addContacts = createAsyncThunk('items/addContacts', async credentials => {
+  try {
+    const { data } = await axios.post('/contacts', credentials);
+    //   token.set(data.token);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+const operations = { contacts, addContacts };
 export default operations;

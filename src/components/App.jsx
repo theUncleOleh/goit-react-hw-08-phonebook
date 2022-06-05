@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import SecondPage from '../pages/SecondPage';
 // import NotFoundPage from '../pages/NotFoundPage';
 const RegisterPage = lazy(() => import('../pages/RegisterPage.jsx'));
-const ContactsListPage = lazy(() => import('../pages/ContactsListPage.jsx'));
+const HomePage = lazy(() => import('../pages/HomePage.jsx'));
 const Login = lazy(() => import('../pages/Login.jsx'));
 const UserContacts = lazy(() => import('../pages/UserContacts.jsx'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage.jsx'));
@@ -18,10 +18,11 @@ export default function App() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<ContactsListPage />} />
+            <Route index element={<HomePage />} />
+            <Route path="contacts" element={<UserContacts />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<Login />} />
-            <Route path="contacts" element={<UserContacts />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
