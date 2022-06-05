@@ -1,4 +1,2 @@
-// export * as itemsOperations from './auth-operations';
-export { default as authSelectors } from './items-selectors';
-export * as itemsRedusers from './items-reducer';
-export * as itemsActions from './items-actions';
+export { default as itemsOperations } from './items-operations';
+export { default as itemsSelectors } from './items-selectors';

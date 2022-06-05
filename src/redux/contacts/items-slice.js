@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import itemsOperations from './items-operations';
+const initialState = {
+  items: [],
+  isLoading: false,
+};
 
-const initialState = { items: [] };
-
-const userSlice = createSlice({
+const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
-    add(state, action) {
-      state.items.push(action.payload);
-    },
-    remove(state, action) {
-      return state.items.filter(item => item.id !== action.payload);
+  reducers: {},
+  extraReducers: {
+    [itemsOperations.contacts.fulfilled](state, action) {
+      state.items = action.payload;
     },
   },
 });
-export const { add, remove } = userSlice.actions;
-export default userSlice.reducer;
+
+export default contactsSlice.reducer;

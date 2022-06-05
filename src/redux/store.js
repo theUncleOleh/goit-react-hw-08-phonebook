@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import { persistStore } from 'redux-persist';
-
+import contactsSlice from './contacts/items-slice';
 import { middleware } from './contacts/items-persistor';
-import authSlice from 'redux/auth/authSlice';
+import authSlice from 'redux/auth/auth-slice';
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
+    contacts: contactsSlice,
   },
   middleware,
 });

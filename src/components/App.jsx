@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './Layout/Layout';
 import Loader from '../components/Loader/Loader';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import PhoneBookPage from '../pages/PhoneBookPage';
 // import SecondPage from '../pages/SecondPage';
 // import NotFoundPage from '../pages/NotFoundPage';
