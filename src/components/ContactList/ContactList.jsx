@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';

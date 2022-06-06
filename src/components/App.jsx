@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import ProtectedRout from 'components/ProtectedRout/ProtectedRout';
-import PublicRoute from 'components/PublicRoute/PublicRoute';
+
 // import PhoneBookPage from '../pages/PhoneBookPage';
 // import SecondPage from '../pages/SecondPage';
 // import NotFoundPage from '../pages/NotFoundPage';
