@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './UserLoginForm.module.css';
-
+import { useNavigate } from 'react-router-dom';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import Form from 'react-bootstrap/Form';
 // import { Button } from 'react-bootstrap';
@@ -20,7 +20,7 @@ export default function UserLoadingForm() {
   //   e.currentTarget.reset();
   // };
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleChange = event => {
@@ -43,6 +43,7 @@ export default function UserLoadingForm() {
     // const user = { name, email, password };
     // console.log(user);
     dispatch(authOperations.logIn({ email, password }));
+    navigate('/');
     // onSubmit(user);
     reset();
   };

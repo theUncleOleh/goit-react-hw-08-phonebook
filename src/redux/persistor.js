@@ -33,8 +33,8 @@
 
 // export const persistedReducer = persistReducer(contactsPersistConfig, reducers);
 import storage from 'redux-persist/lib/storage';
-import userSlice from './items-slice';
 
+import authSlice from './auth/auth-slice';
 import {
   persistReducer,
   FLUSH,
@@ -56,11 +56,13 @@ export const middleware = getDefaultMiddleware => [
 ];
 
 export const contactsPersistConfig = {
-  key: 'contacts',
+  key: 'auth',
   storage,
+  blacklist: ['user', 'isLoggedIn'],
 };
 
 export const persistedReducer = persistReducer(
   contactsPersistConfig,
-  userSlice
+
+  authSlice
 );

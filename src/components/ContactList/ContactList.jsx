@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { itemsSelectors } from 'redux/contacts';
-// import ContactListItem from 'components/ContactListItem/ContactListItem';
+import ContactListItem from 'components/ContactListItem/ContactListItem';
 // import { useGetAllContactsQuery } from 'redux/contacts/auth-operations';
 // import Loader from 'components/Loader';
 import { useDispatch } from 'react-redux';
@@ -21,8 +21,6 @@ export default function ContactList() {
   }, [dispatch]);
 
   const contacts = useSelector(state => state.contacts.contacts);
-  console.log(contacts);
-
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -43,36 +41,41 @@ export default function ContactList() {
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    // const user = { name, email, password };
-    // console.log(user);
-    dispatch(itemsOperations.addContacts({ name, number }));
+    const formNumber = numberFormatting(number);
+    const user = { name, number: formNumber };
+    console.log(user);
+    dispatch(itemsOperations.addContacts(user));
     // onSubmit(user);
     reset();
   };
-  // const numberFormatting = phone => {
-  //   const array = [...phone];
-  //   for (let i = 3; i < array.length - 1; i += 3) {
-  //     array.splice(i, 0, '-');
-  //   }
-  //   return array.join('');
-  // };
+  const numberFormatting = number => {
+    const array = [...number];
+    for (let i = 3; i < array.length - 1; i += 3) {
+      array.splice(i, 0, '-');
+    }
+    return array.join('');
+  };
 
   const reset = () => {
     setName('');
     setNumber('');
   };
+  // const deleteListItem = id => {
+  //   console.log(id);
+  //   dispatch(itemsOperations.deleteContacts(id));
+  //   // toast.success(`Contact ${name} successfuly delete`);
+  // };
 
-  // const { data: contacts, isLoading, error } = useGetAllContactsQuery();
-  // const filter = useSelector(itemsSelectors.getFilterSelector);
+  // const filter = useSelector(state => state.filter.value);
   // const getVisibleContacts = () => {
   //   const normalizeFilter = filter.toLowerCase();
   //   return contacts?.filter(({ name }) =>
   //     name.toLowerCase().includes(normalizeFilter)
   //   );
   // };
-  // // const getVisibleContacts = createSelector([]);
+  // const getVisibleContacts = createSelector([]);
   // const visibleContacts = getVisibleContacts();
+
   return (
     <Fragment>
       {/* <Filter />
@@ -113,7 +116,7 @@ export default function ContactList() {
         </label>
 
         <label htmlFor="" className={s.label}>
-          E-mail
+          Number
           <input
             autoComplete="off"
             className={s.input}
@@ -129,16 +132,18 @@ export default function ContactList() {
       </form>
       <ul className={s.list}>
         {contacts?.map(contact => (
-          <li key={contact.id}>
-            {' '}
-            <span>{contact.name}</span> : <span>{contact.number}</span>
-          </li>
-          // <ContactListItem
-          //   key={contact.id}
-          //   id={contact.id}
-          //   name={contact.name}
-          //   phone={contact.phone}
-          // />
+          // <li key={contact.id}>
+          //   <span>{contact.name}</span> : <span>{contact.number}</span>
+          //   <button type="button" onClick={() => deleteListItem(contact.id)}>
+          //     Delete
+          //   </button>
+          // </li>
+          <ContactListItem
+            key={contact.id}
+            id={contact.id}
+            name={contact.name}
+            number={contact.number}
+          />
         ))}
       </ul>
 

@@ -1,38 +1,45 @@
-import { useDeleteContactMutation } from 'redux/contacts/auth-operations';
-import ScaleLoader from 'react-spinners/ScaleLoader';
+// import ScaleLoader from 'react-spinners/ScaleLoader';
 import { FiUser, FiPhone } from 'react-icons/fi';
-import { toast } from 'react-toastify';
+
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './ContactListItem.module.css';
-export default function ContactListItem({ id, name, phone }) {
-  const [deleteContact, { isLoading: isDeliting }] = useDeleteContactMutation();
+import { itemsOperations } from 'redux/contacts';
+export default function ContactListItem({ id, name, number }) {
+  const dispatch = useDispatch();
+
   const deleteListItem = id => {
-    deleteContact(id);
-    toast.success(`Contact ${name} successfuly delete`);
+    console.log(id);
+    dispatch(itemsOperations.deleteContacts(id));
   };
   return (
     <>
       <li className={s.item}>
-        <p className={s.graf}>
+        <span className={s.graf}>
           <FiUser />
           {name}
-        </p>
-        :
-        <p className={s.graf}>
-          <FiPhone /> {phone}
-        </p>
-        <button
+        </span>
+        <span> : </span>
+        <span className={s.graf}>
+          <FiPhone /> {number}
+        </span>
+        <Button type="button" onClick={() => deleteListItem(id)}>
+          Delete
+        </Button>
+        {/* <button => 
           type="button"
-          disabled={isDeliting}
+        
           className={s.button}
-          onClick={() => deleteListItem(id)}
+         
         >
           {isDeliting ? (
             <ScaleLoader height={15} width={5} margin={2} />
           ) : (
             'Delete'
           )}
-        </button>
+        </button> */}
       </li>
     </>
   );

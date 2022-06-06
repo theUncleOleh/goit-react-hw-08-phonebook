@@ -1,19 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import { persistStore } from 'redux-persist';
+import { persistStore } from 'redux-persist';
 import contactsSlice from './contacts/items-slice';
-import { middleware } from './contacts/items-persistor';
-import authSlice from 'redux/auth/auth-slice';
+import { middleware } from './persistor';
+import { persistedReducer } from './persistor';
 
 const store = configureStore({
   reducer: {
-    auth: authSlice,
+    auth: persistedReducer,
     contacts: contactsSlice,
   },
   middleware,
 });
 
-// const persistor = persistStore(store);
-export { store };
+const persistor = persistStore(store);
+export { store, persistor };
 // const store = configureStore({
 //   reducer: {
 //     contacts: reducers,
