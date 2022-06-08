@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { itemsSelectors } from 'redux/contacts';

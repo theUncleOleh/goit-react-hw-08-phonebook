@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import s from './ButtonToBack.module.css';
+// import s from './ButtonToBack.module.css';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default function BackToTrendButton() {

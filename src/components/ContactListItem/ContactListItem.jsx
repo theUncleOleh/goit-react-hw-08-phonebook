@@ -1,6 +1,6 @@
 // import ScaleLoader from 'react-spinners/ScaleLoader';
 import { FiUser, FiPhone } from 'react-icons/fi';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

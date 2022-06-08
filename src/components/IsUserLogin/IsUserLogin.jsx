@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import s from './IsUserLogin.module.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
@@ -19,8 +19,9 @@ export default function UserLoadingForm() {
   //   addContacts({ name, phone });
   //   e.currentTarget.reset();
   // };
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch(); 
+  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleChange = event => {
