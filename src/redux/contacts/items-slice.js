@@ -21,7 +21,17 @@ const contactsSlice = createSlice({
       console.log(action.payload);
       state.contacts = state.contacts.filter(({ id }) => id !== action.payload);
     },
+    [itemsOperations.updateContacts.fulfilled](state, action) {
+      state.contacts.map(contact =>
+        contact.id === action.payload
+          ? state.contacts.push(action.payload)
+          : state.contacts
+      );
+    },
   },
 });
+
+
+
 
 export default contactsSlice.reducer;

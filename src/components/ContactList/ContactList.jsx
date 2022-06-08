@@ -1,21 +1,25 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { itemsSelectors } from 'redux/contacts';
+import { itemsSelectors } from 'redux/contacts';
 import ContactListItem from 'components/ContactListItem/ContactListItem';
 // import { useGetAllContactsQuery } from 'redux/contacts/auth-operations';
 // import Loader from 'components/Loader';
 import { useDispatch } from 'react-redux';
 import { itemsOperations } from 'redux/contacts';
-// import Filter from 'components/Filter';
+import { useParams } from 'react-router';
+import Filter from 'components/Filter';
 
 export default function ContactList() {
+  const filter = useSelector(itemsSelectors.getFilterSelector);
   const dispatch = useDispatch();
-
+  const { userId } = useParams();
+  console.log(userId);
   useEffect(() => {
     dispatch(itemsOperations.contacts());
   }, [dispatch]);
@@ -43,11 +47,12 @@ export default function ContactList() {
     event.preventDefault();
     const formNumber = numberFormatting(number);
     const user = { name, number: formNumber };
-    console.log(user);
+
     dispatch(itemsOperations.addContacts(user));
-    // onSubmit(user);
+    toast.success(`${name} was added to contacts!`);
     reset();
   };
+
   const numberFormatting = number => {
     const array = [...number];
     for (let i = 3; i < array.length - 1; i += 3) {
@@ -66,40 +71,18 @@ export default function ContactList() {
   //   // toast.success(`Contact ${name} successfuly delete`);
   // };
 
-  // const filter = useSelector(state => state.filter.value);
-  // const getVisibleContacts = () => {
-  //   const normalizeFilter = filter.toLowerCase();
-  //   return contacts?.filter(({ name }) =>
-  //     name.toLowerCase().includes(normalizeFilter)
-  //   );
-  // };
+  const getVisibleContacts = () => {
+    const normalizeFilter = filter.toLowerCase();
+    return contacts?.filter(({ name }) =>
+      name.toLowerCase().includes(normalizeFilter)
+    );
+  };
   // const getVisibleContacts = createSelector([]);
-  // const visibleContacts = getVisibleContacts();
+  const visibleContacts = getVisibleContacts();
 
   return (
     <Fragment>
-      {/* <Filter />
-      <h2 className={s.title}>Contacts</h2>
-      {error ? (
-        <>Oh no, there was an error</>
-      ) : isLoading ? (
-        <>{<Loader />}</>
-      ) : contacts ? (
-        <>
-          <ul className={s.list}>
-            {visibleContacts.map(contact => (
-              <ContactListItem
-                key={contact.id}
-                id={contact.id}
-                name={contact.name}
-                phone={contact.phone}
-              />
-
-            ))}
-          </ul>
-        </>
-      ) : null} */}
-      <form onSubmit={handleSubmit} className={s.form}>
+      <form className={s.form} onSubmit={handleSubmit}>
         <label htmlFor="" className={s.label}>
           Name
           <input
@@ -124,20 +107,15 @@ export default function ContactList() {
             name="number"
             value={number}
             onChange={handleChange}
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           />
         </label>
         <Button type="submit">Create</Button>
       </form>
+      <Filter />
       <ul className={s.list}>
-        {contacts?.map(contact => (
-          // <li key={contact.id}>
-          //   <span>{contact.name}</span> : <span>{contact.number}</span>
-          //   <button type="button" onClick={() => deleteListItem(contact.id)}>
-          //     Delete
-          //   </button>
-          // </li>
+        {visibleContacts?.map(contact => (
           <ContactListItem
             key={contact.id}
             id={contact.id}
@@ -151,3 +129,4 @@ export default function ContactList() {
     </Fragment>
   );
 }
+        

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import s from './UserLoginForm.module.css';
+import s from './IsUserLogin.module.css';
 import { useNavigate } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import Form from 'react-bootstrap/Form';
-// import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 // import InputGroup from 'react-bootstrap/InputGroup';
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/auth';
@@ -43,7 +43,8 @@ export default function UserLoadingForm() {
     // const user = { name, email, password };
     // console.log(user);
     dispatch(authOperations.logIn({ email, password }));
-    navigate('/');
+    // navigate('/contacts');
+    // console.log('navigate', navigate);
     // onSubmit(user);
     reset();
   };
@@ -108,9 +109,9 @@ export default function UserLoadingForm() {
           // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         />
       </label>
-      <button type="submit" className={s.button}>
+      <Button type="submit" className={s.button}>
         Log In
-      </button>
+      </Button>
     </form>
   );
 }

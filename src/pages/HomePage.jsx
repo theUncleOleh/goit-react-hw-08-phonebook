@@ -1,10 +1,10 @@
 import PageHeading from 'components/PageHeading';
-
+import WelcomePageComponent from 'components/WelcomePageComponent/WelcomePageComponent';
 export default function HomePage() {
   return (
     <div>
       <PageHeading text="Home page" />
-      <h1>Helloooooo it's our first page</h1>
+      <WelcomePageComponent />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import s from './ButtonToBack.module.css';
-
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 export default function BackToTrendButton() {
   const location = useLocation();
   console.log(location);
@@ -9,9 +10,5 @@ export default function BackToTrendButton() {
   const backToTrendButton = () => {
     navigate(location?.state?.from ?? '/');
   };
-  return (
-    <button type="button" onClick={backToTrendButton} className={s.button}>
-      Previous page
-    </button>
-  );
+  return <Button onClick={backToTrendButton}>Previous page</Button>;
 }

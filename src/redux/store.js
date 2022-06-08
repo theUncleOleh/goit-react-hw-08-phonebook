@@ -3,11 +3,13 @@ import { persistStore } from 'redux-persist';
 import contactsSlice from './contacts/items-slice';
 import { middleware } from './persistor';
 import { persistedReducer } from './persistor';
+import itemsSlice from 'redux/contacts/filter-slice';
 
 const store = configureStore({
   reducer: {
     auth: persistedReducer,
     contacts: contactsSlice,
+    filter: itemsSlice,
   },
   middleware,
 });
